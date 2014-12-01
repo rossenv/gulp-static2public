@@ -1,0 +1,16 @@
+{
+	"name": "white-stork",
+	"version": "0.0.0",
+	"dependencies": {
+		"modernizr": "2.8.x",
+		"jquery" : "2.x.x",
+		"jquery.lazyload": "*",
+		"createjs-preloadjs": "*",
+		"fastclick": "*",
+		"ScrollMagic": "*",
+		"GreenSock": "http://github.com/greensock/GreenSock-JS.git"
+	},
+	"resolutions": {
+		"jquery" : "2.x.x"
+	}
+}

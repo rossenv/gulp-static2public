@@ -1,0 +1,131 @@
+// Image directory
+//////////////////////////////////
+$url-img                : "../img/";
+
+// // Layout settings
+// //////////////////////////////////
+
+
+// Colors
+//////////////////////////////////
+
+$col-gray-alpha: rgb(215, 215, 215);
+
+
+// Fonts
+/////////////////////////////////
+$font-face: proxima-nova, sans-serif;
+
+
+// Lines
+/////////////////////////////////
+
+
+// Constants
+/////////////////////////////////
+$hover-opacity: .8;
+$border-radius-basic: 4px;
+
+// Mixins
+/////////////////////////////////
+
+// REM
+@mixin font-size($sizeValue: 1, $important: false) {
+	$im : '';
+	@if $important == true {
+		$im : ' !important'
+	}
+	font-size: $sizeValue + px + $im;
+	font-size: $sizeValue/16 + rem + $im;
+}
+
+// Text truncate
+@mixin trunc-text() {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+// Positioning mixins
+/// Private method
+@mixin _position($position, $args) {
+	$offsets: top right bottom left;
+
+	@each $o in $offsets {
+		$i: index($args, $o);
+		@if $i
+		and $i + 1 <= length($args)
+		and type-of( nth($args, $i + 1) ) == number {
+			#{$o}: nth($args, $i + 1);
+		}
+	}
+
+	position: $position;
+}
+
+@mixin absolute($args) {
+	@include _position(absolute, $args);
+}
+
+@mixin relative($args) {
+	@include _position(relative, $args);
+}
+
+@mixin fixed($args) {
+	@include _position(fixed,    $args);
+}
+
+@mixin vertical-align ($pos: relative) {
+	position: $pos;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+@mixin horizontal-align ($pos: relative) {
+	position: $pos;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	transform: translateX(-50%);
+}
+
+// For use with RGBA colors
+// Usage:
+// .button {
+//   @include alpha-attribute('background-color', rgba(black, 0.5), white);
+// }
+@mixin alpha-attribute($attribute, $color, $background) {
+	$percent: alpha($color) * 100%;
+	$opaque: opacify($color, 1);
+	$solid-color: mix($opaque, $background, $percent);
+	#{$attribute}: $solid-color;
+	#{$attribute}: $color;
+}
+
+
+@mixin shift-pad($n-columns: 1) {
+	@include shift-pad-in-context($n-columns);
+}
+
+@mixin shift-pad-in-context($shift: $columns of $container-columns) {
+	$n-columns: nth($shift, 1);
+	$parent-columns: container-shift($shift);
+
+	$direction: get-direction($layout-direction, $default-layout-direction);
+	$opposite-direction: get-opposite-direction($direction);
+
+	padding-#{$opposite-direction}: $n-columns * flex-grid(1, $parent-columns) + $n-columns * flex-gutter($parent-columns);
+
+	// Reset nesting context
+	$parent-columns: $grid-columns;
+}
+
+// ------------------------------------------------------------
+// Omega Reset Mixin by Josh Fry (http://joshfry.me/)
+// ------------------------------------------------------------
+@mixin omega-reset($nth, $cols) {
+	&:nth-child(#{$nth}) { margin-right: flex-gutter($cols, $gutter); }
+	&:nth-child(#{$nth}+1) { clear: none }
+}
