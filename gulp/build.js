@@ -28,7 +28,7 @@ gulp.task('js', function () {
 	return gulp.src('static_html/js/**/*.js')
 		.pipe($.jshint())
 		.pipe($.jshint.reporter('jshint-stylish'))
-		.pipe(gulp.dest('public/js'))
+		// .pipe(gulp.dest('public/js'))
 		.pipe($.size());
 });
 
