@@ -20,7 +20,7 @@ gulp.task('watch', ['build', 'browser-sync'], function () {
 	gulp.watch('static_html/js/**/*.js', ['js']);
 	gulp.watch('static_html/**/*.html', ['html']);
 	gulp.watch('static_html/fonts/**/*', ['fonts']);
-	gulp.watch('static_html/images/**/*', ['images']);
+	gulp.watch('static_html/img/**/*', ['images']);
 	gulp.watch('static_html/*.ico', ['misc']);
 	gulp.watch('bower.json', ['wiredep']);
 	return gulp.watch('public/**/**', function(file) {
