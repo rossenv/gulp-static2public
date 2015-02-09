@@ -3,6 +3,9 @@
 var gulp = require('gulp');
 var sourcemaps = require('gulp-sourcemaps');
 var notify = require('gulp-notify');
+var inject = require('gulp-inject'),
+		data = require('gulp-data'),
+		debug = require('gulp-debug');
 
 var $ = require('gulp-load-plugins')({
 	pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
@@ -70,9 +73,39 @@ gulp.task('misc', function () {
 		.pipe($.size());
 });
 
-
 gulp.task('clean', function (done) {
 	$.del('public', done);
 });
 
-gulp.task('build', ['styles', 'js', 'html', 'images', 'fonts', 'misc']);
+gulp.task('update-readme', function () {
+	return gulp.src('./readme.md')
+	.pipe(inject(
+		gulp.src(['./bower.json'], {read: true}), {
+			starttag: '### Bower Dependencies',
+			endtag: '### Installing & running',
+			transform: function (filepath, file, i, length) {
+				var dep = JSON.parse(String(file.contents)).dependencies,
+					devDep = JSON.parse(String(file.contents)).devDependencies,
+					strDep = '';
+
+				if (undefined != dep) {
+					for (var prop in dep) {
+						strDep += '<p>' + prop + ': ' + dep[prop] + '</p>';
+					}
+				}
+
+				if (undefined != devDep) {
+					for (var prop in devDep) {
+						strDep += '<p>' + prop + ': ' + devDep[prop] + '</p>';
+					}
+				}
+
+				return strDep;
+			}
+		}
+	))
+	.pipe(gulp.dest('./'))
+	.pipe($.size());
+});
+
+gulp.task('build', ['styles', 'js', 'html', 'images', 'fonts', 'misc', 'update-readme']);

@@ -1,14 +1,16 @@
-white-stork
+<Project Name>
 ===========
 
 
-front end
----------
+## Front End
 
-**Installing & running**
+### Bower Dependencies
+
+
+### Installing & running
 * clone this project
 * $ bower install
 * $ npm install
 * run gulp watch
 
-Front end dev foleder is **static_html**. The result is delivered in **public** folder.
+Front end dev folder is **static_html**. The result is delivered in **public** folder.

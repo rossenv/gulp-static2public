@@ -22,7 +22,7 @@ gulp.task('watch', ['build', 'browser-sync'], function () {
 	gulp.watch('static_html/fonts/**/*', ['fonts']);
 	gulp.watch('static_html/img/**/*', ['images']);
 	gulp.watch('static_html/*.ico', ['misc']);
-	gulp.watch('bower.json', ['wiredep']);
+	gulp.watch('bower.json', ['wiredep', 'update-readme']);
 	return gulp.watch('public/**/**', function(file) {
 		if (file.type === "changed") {
 			return browserSync.reload(file.path);
