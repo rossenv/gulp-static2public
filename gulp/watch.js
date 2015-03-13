@@ -18,7 +18,7 @@ gulp.task('browser-sync', function() {
 gulp.task('watch', ['build', 'browser-sync'], function () {
 	gulp.watch('static_html/scss/**/*.scss', ['styles']);
 	gulp.watch('static_html/js/**/*.js', ['js', 'html']);
-	gulp.watch('static_html/**/*.html', ['html']);
+	gulp.watch('static_html/**/*.html', ['html', 'partials']);
 	gulp.watch('static_html/fonts/**/*', ['fonts']);
 	gulp.watch('static_html/img/**/*', ['images']);
 	gulp.watch('static_html/*.ico', ['misc']);
